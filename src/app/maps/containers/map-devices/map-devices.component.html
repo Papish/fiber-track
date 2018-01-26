@@ -1,0 +1,34 @@
+<agm-marker 
+  *ngFor="let device of (devices$ | async)" 
+  [latitude]="device.latitude | convertToDecimal" 
+  [longitude]="device.longitude | convertToDecimal"
+>
+  <!-- <agm-snazzy-info-window>
+    <ng-template>
+      <div class="info-form">
+        <p>
+          <button type="button" (click)="openPanel(device.id)">Connection</button>
+        </p>
+        <label>In Port: {{ device.in_port }}</label>
+        <br />
+        <br />
+        <label>Out Port: {{ device.out_port }}</label>
+        <br />
+        <br />
+      </div>
+    </ng-template>
+  </agm-snazzy-info-window> -->
+
+  <agm-info-window>
+      <div class="info-form">
+        <p>
+          <button type="button" (click)="openPanel(device.id)">Connection</button>
+        </p>
+        <label>In Port:</label> {{ device.in_port }}
+        <br />
+        <label>Out Port: </label> {{ device.out_port }}
+        <br />
+        <br />
+      </div>
+  </agm-info-window>
+</agm-marker>

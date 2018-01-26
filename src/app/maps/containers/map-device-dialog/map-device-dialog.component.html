@@ -1,0 +1,67 @@
+<div class="modal-cont">
+    <mat-horizontal-stepper [linear]="isLinear">
+        <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Choose Fiber</ng-template>
+                <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>
+                        <div style="width: 100%">
+                            <h4>Add Fiber</h4>
+                            <mat-form-field style="width: 50%">
+                                <mat-select placeholder="Fiber cable">
+                                    <mat-option [value]="test">
+                                        Test
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div style="width: 100%;">
+                            <h4 style="margin-top: 24px">Choose Fiber Cable</h4>
+                            <br />
+                            <div style="width: 100%; padding: 50 0px; float: left; margin-bottom: 20px">
+                                <span style="float: left;">Tulima core - 18</span>
+                                <span style="float: right;">
+                                    <mat-checkbox></mat-checkbox>
+                                </span>
+                            </div>
+                            <div style="width: 100%; padding: 50 0px; float: left">
+                                <span style="float: left;">Tulima core - 18</span>
+                                <span style="float: right;">
+                                    <mat-checkbox></mat-checkbox>
+                                </span>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+                <br />
+                <br />
+                <br />
+                <br />
+                <mat-dialog-actions>
+                    <div style="float: left; width: 50%; text-align: left;">
+                        <button mat-raised-button disabled>Previous</button>
+                    </div>
+                    <div style="float: right; width: 50%; text-align: right;">
+                        <button mat-raised-button matStepperNext color="primary">Next</button>
+                    </div>
+                </mat-dialog-actions>
+                <br />
+            </form>
+        </mat-step>
+        <mat-step label="Step 2" [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Core Details</ng-template>
+                <mat-form-field>
+                    <input matInput placeholder="Address" formControlName="secondCtrl" required>
+                </mat-form-field>
+                <div>
+                    <button mat-raised-button matStepperNext color="primary">Next</button>
+                    <button mat-raised-button matStepperPrevious color="link">Back</button>
+                </div>
+            </form>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

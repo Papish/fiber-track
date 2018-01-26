@@ -1,0 +1,1 @@
+export const MAP_API_KEY = 'AIzaSyCV10_AMZXsESFmDp873n-IdbxKvb71JLY&libraries=drawing,places,geometry';

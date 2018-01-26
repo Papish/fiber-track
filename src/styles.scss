@@ -1,0 +1,18 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+$primary_font_size: 13px;
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: $primary_font_size;
+  background-color: #F6F4F6;
+}
+
+// Material css
+.mat-horizontal-content-container {
+  padding-bottom: 0 !important;
+}
+
+.mat-list-text {
+  padding: 0px 0px !important;
+}
