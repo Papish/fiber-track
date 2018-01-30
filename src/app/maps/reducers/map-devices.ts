@@ -2,19 +2,19 @@ import * as fromMapDevice from '../actions/map-devices';
 import { MapDevice } from '../models/map-device';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-export interface MapState {
+export interface AppState {
   devices: MapDevice[];
   loading: boolean;
   loaded: boolean;
 }
 
-const initialState: MapState = {
+const initialState: AppState = {
   devices: [],
   loading: false,
   loaded: false
 };
 
-export function reducer(state = initialState, action: fromMapDevice.Actions): MapState {
+export function reducer(state = initialState, action: fromMapDevice.Actions): AppState {
   switch(action.type) {
     /**
      * Device load

@@ -1,17 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TestComponent, TestDialogComponent } from './containers/test/test.component';
+import { HomeComponent } from './containers/home/home.component';
+import { FibersComponent } from './containers/fibers/fibers.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+
+import { AppRoutingModule } from '../app-routing.module';
+
+import { FibersService } from './services/fibers.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    AppRoutingModule
   ],
   declarations: [
-    TestComponent, 
-    TestDialogComponent
+    HomeComponent,
+    FibersComponent,
+    NavBarComponent
+  ],
+  providers: [
+    FibersService
   ],
   entryComponents: [
-    TestDialogComponent
   ]
 })
 export class DashboardModule { }

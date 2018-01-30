@@ -5,9 +5,11 @@
 		[zoom]="18"
 		[disableDoubleClickZoom]="true"
 		(mapRightClick)="createMarker($event)"
+		(mapClick)="onMapClick($event)"
 	>
 		<ft-map-devices></ft-map-devices>
 
+		<!-- New marker -->
 		<agm-marker
 			*ngFor="let device of newDevice"
 			[latitude]="device.lat"
@@ -27,5 +29,16 @@
 				</ng-template>
 			</agm-snazzy-info-window>
 		</agm-marker>
+
+		<!-- New Connection -->
+		<agm-polyline
+			[editable]="true"
+		>
+			<agm-polyline-point
+				*ngFor="let connection of (connections$ | async)"
+				[latitude]="connection.latitude | convertToDecimal"
+				[longitude]="connection.longitude | convertToDecimal"
+			></agm-polyline-point>
+		</agm-polyline>
 	</agm-map>
 </div>

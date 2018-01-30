@@ -8,13 +8,14 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import {
   MatStepperModule,
   MatFormFieldModule,
-  MatInputModule, 
-  MatDialogModule, 
-  MatButtonModule, 
-  MatGridListModule, 
+  MatInputModule,
+  MatDialogModule,
+  MatButtonModule,
+  MatGridListModule,
   MatSelectModule,
   MatListModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { MAP_API_KEY } from '../shared/map';
@@ -25,6 +26,7 @@ import { ToDecimalPipe } from '../shared/pipes/to-decimal';
 import { GoogleMapComponent } from './containers/google-map/google-map.component';
 import { MapDevicesComponent } from './containers/map-devices/map-devices.component';
 import { MapDeviceDialogComponent } from './containers/map-device-dialog/map-device-dialog.component';
+import { ConnectionProccedSnackComponent } from './components/connection-procced-snack/connection-procced-snack.component';
 
 @NgModule({
   imports: [
@@ -43,16 +45,19 @@ import { MapDeviceDialogComponent } from './containers/map-device-dialog/map-dev
     MatGridListModule,
     MatSelectModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
   ],
   declarations: [
     GoogleMapComponent,
     MapDevicesComponent,
     MapDeviceDialogComponent,
-    ToDecimalPipe
+    ToDecimalPipe,
+    ConnectionProccedSnackComponent
   ],
   entryComponents: [
-    MapDeviceDialogComponent
+    MapDeviceDialogComponent,
+    ConnectionProccedSnackComponent
   ],
   providers: [
     GoogleMapsAPIWrapper

@@ -37,4 +37,6 @@ export class MapEffects {
         .map(res => new fromMapDevices.AddNewMapDeviceSuccess(res))
         .catch(err => of(new fromMapDevices.AddNewMapDeviceFailed(err)))
     );
+
+  // @Effect()
 }

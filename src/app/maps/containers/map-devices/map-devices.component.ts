@@ -1,13 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { MatDialog } from '@angular/material';
-
-import { MapDeviceDialogComponent } from '../map-device-dialog/map-device-dialog.component';
+import { MatSnackBar, MatDialog } from '@angular/material';
 
 import { MapDevice } from '../../models/map-device';
+
 import * as fromMap from '../../reducers';
 import * as fromMapDevices from '../../actions/map-devices';
+import * as fromConnection from '../../actions/new-connection.action';
+
+import { MapDeviceDialogComponent } from '../map-device-dialog/map-device-dialog.component';
 
 @Component({
   selector: 'ft-map-devices',
@@ -19,8 +21,9 @@ export class MapDevicesComponent implements OnInit {
   devices$: Observable<MapDevice[]>;
 
   constructor(
-    public dialog: MatDialog,
     private store: Store<fromMap.AppState>,
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) { 
     this.devices$ = store.select(fromMap.getMapDevices);
   }
@@ -29,12 +32,21 @@ export class MapDevicesComponent implements OnInit {
     this.store.dispatch(new fromMapDevices.FetchMapDevice({}));
   }
 
-  openPanel() {
-    let dialogRef = this.dialog.open(MapDeviceDialogComponent, {
-      width: '900px',
-      data: {}
-    });
+  startConnection(latitude, longitude) {
+    const plot = { latitude, longitude };
+    this.store.dispatch(new fromConnection.NewDeviceConnection(plot));
+  }
 
-    // dialogRef.afterClosed().subscribe(() => console.log('closed'));
+  endConnection(latitude, longitude) {
+    const plot = { latitude, longitude};
+    this.store.dispatch(new fromConnection.EndDeviceConnection(plot));
+
+    let snackBar = this.snackbar.open('Click proceed to continue', 'Procced');
+    
+    snackBar.onAction().subscribe(() => {
+      let dialog = this.dialog.open(MapDeviceDialogComponent, {
+        width: "900px"
+      });
+    });
   }
 }

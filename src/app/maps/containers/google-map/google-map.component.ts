@@ -5,6 +5,7 @@ import { MapDevice } from '../../models/map-device';
 
 import * as fromMap from '../../reducers';
 import * as fromMapDevices from '../../actions/map-devices';
+import * as fromConnection from '../../actions/new-connection.action';
 
 @Component({
   selector: 'ft-google-map',
@@ -13,6 +14,9 @@ import * as fromMapDevices from '../../actions/map-devices';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GoogleMapComponent implements OnInit {
+  connections$: Observable<any>;
+  connectionStatus: any;
+
   newDevice = [];
   deviceNew = {
     name: '',
@@ -21,7 +25,9 @@ export class GoogleMapComponent implements OnInit {
 
   constructor(
     private store: Store<fromMap.AppState>
-  ) { 
+  ) {
+    this.connections$ = this.store.select(fromMap.getConnection);
+    this.store.select(fromMap.getConnectionStatus).subscribe(data => this.connectionStatus = data);
   }
 
   ngOnInit() {
@@ -64,5 +70,15 @@ export class GoogleMapComponent implements OnInit {
       description: ''
     };
     this.newDevice = [];
+  }
+
+  onMapClick($event) {
+    if (this.connectionStatus === true) {
+      const plot = {
+        latitude: $event.coords.lat,
+        longitude: $event.coords.lng
+      };
+      this.store.dispatch(new fromConnection.AddPlotToConnection(plot));
+    }
   }
 }

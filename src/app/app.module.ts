@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MapsModule } from './maps/maps.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -20,7 +20,7 @@ import { AppComponent } from './app.component';
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		BrowserAnimationsModule,
+		NoopAnimationsModule,
 		StoreModule.forRoot(reducers, { metaReducers }),
 		EffectsModule.forRoot([]),
 		HttpClientModule,

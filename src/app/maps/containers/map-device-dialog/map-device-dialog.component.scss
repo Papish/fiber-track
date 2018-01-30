@@ -1,16 +1,30 @@
-.fiber-cont {
-    width: 100%;
-    height: auto;
+.modal-cont {
+    position: relative;
 }
 
-.conn-cont {
+.step-cont {
+    padding-top: 30px;
+}
+
+.step-body {
+    height: 280px;
     text-align: center;
+    vertical-align: middle;
 }
 
-.test {
-    transition: none;
+.port-label {
+    display: inline-block;
+    width: 60px;
+    text-align: left !important;
 }
 
-.active {
-    background-color: rgb(241, 241, 233);
+.footer-control {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 0;
+}
+
+.port-list {
+    margin: 15px 0px;
 }
