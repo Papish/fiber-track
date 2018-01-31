@@ -12,8 +12,9 @@
       <br />
       <br />
       <p>
-        <button type="button" (click)="startConnection(device.latitude, device.longitude)">Start Connection</button>
-        <button type="button" (click)="endConnection(device.latitude, device.longitude)">End Connection</button>
+        <button type="button" *ngIf="(drawing$ | async) === false && (conn$ | async) === false" (click)="startConnection(device.id, device.latitude, device.longitude)">Start Connection</button>
+
+        <button type="button" *ngIf="(drawing$ | async) === true  && deviceOneId !== device.id && (conn$ | async) === false" (click)="endConnection(device.id, device.latitude, device.longitude)">End Connection</button>
       </p>
     </div>
   </agm-info-window>

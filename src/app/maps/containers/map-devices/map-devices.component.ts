@@ -3,13 +3,12 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar, MatDialog } from '@angular/material';
 
-import { MapDevice } from '../../models/map-device';
+import { MapDeviceDialogComponent } from '../map-device-dialog/map-device-dialog.component';
 
+import { MapDevice } from '../../models/map-device';
 import * as fromMap from '../../reducers';
 import * as fromMapDevices from '../../actions/map-devices';
 import * as fromConnection from '../../actions/new-connection.action';
-
-import { MapDeviceDialogComponent } from '../map-device-dialog/map-device-dialog.component';
 
 @Component({
   selector: 'ft-map-devices',
@@ -19,6 +18,10 @@ import { MapDeviceDialogComponent } from '../map-device-dialog/map-device-dialog
 })
 export class MapDevicesComponent implements OnInit {
   devices$: Observable<MapDevice[]>;
+  drawing$: Observable<any>;
+  conn$: Observable<any>;
+
+  deviceOneId: number = null;
 
   constructor(
     private store: Store<fromMap.AppState>,
@@ -26,26 +29,40 @@ export class MapDevicesComponent implements OnInit {
     private snackbar: MatSnackBar
   ) { 
     this.devices$ = store.select(fromMap.getMapDevices);
+    this.drawing$ = store.select(fromMap.getAddConnectionDrawingStatus);
+    this.conn$ = store.select(fromMap.getAddConnectionCoreSelectionStatus);
   }
 
   ngOnInit() {
     this.store.dispatch(new fromMapDevices.FetchMapDevice({}));
   }
 
-  startConnection(latitude, longitude) {
-    const plot = { latitude, longitude };
+  startConnection(id, latitude, longitude) {
+    const plot = { 
+      latitude, 
+      longitude 
+    };
+    this.deviceOneId = id;
     this.store.dispatch(new fromConnection.NewDeviceConnection(plot));
   }
 
-  endConnection(latitude, longitude) {
-    const plot = { latitude, longitude};
+  endConnection(id, latitude, longitude) {
+    const plot = { 
+      latitude, 
+      longitude
+    };
+
     this.store.dispatch(new fromConnection.EndDeviceConnection(plot));
 
     let snackBar = this.snackbar.open('Click proceed to continue', 'Procced');
     
     snackBar.onAction().subscribe(() => {
       let dialog = this.dialog.open(MapDeviceDialogComponent, {
-        width: "900px"
+        width: "900px",
+        data: {
+          deviceOneId: this.deviceOneId,
+          deviceTwoId: id
+        }
       });
     });
   }

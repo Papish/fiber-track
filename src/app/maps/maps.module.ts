@@ -28,6 +28,8 @@ import { MapDevicesComponent } from './containers/map-devices/map-devices.compon
 import { MapDeviceDialogComponent } from './containers/map-device-dialog/map-device-dialog.component';
 import { ConnectionProccedSnackComponent } from './components/connection-procced-snack/connection-procced-snack.component';
 
+import { FibersService } from './services/fibers.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import { ConnectionProccedSnackComponent } from './components/connection-procced
     ConnectionProccedSnackComponent
   ],
   providers: [
-    GoogleMapsAPIWrapper
+    GoogleMapsAPIWrapper,
+    FibersService
   ]
 })
 export class MapsModule { }

@@ -1,6 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { FibersService } from '../../services/fibers.service';
+import { Fiber } from '../../models/fiber.model';
+import * as fromMap from '../../reducers';
 
 @Component({
   selector: 'ft-map-device-dialog',
@@ -8,65 +13,44 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./map-device-dialog.component.scss']
 })
 export class MapDeviceDialogComponent implements OnInit {
-  isLinear = true;
-  
-  fibers = [];
-  userSelected = {
-    fiberId: 0
-  };
-  selectedFiberCores = [];
+  fibers$: Observable<Fiber[]>;
+
+  newFiber = [];
+  addCount = 0;
+  selectedId: number = null;
+
   constructor(
+    public store: Store<fromMap.AppState>,
+    public fibers: FibersService,
     public dialogRef: MatDialogRef<MapDeviceDialogComponent>,
-    private _formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+    @Inject (MAT_DIALOG_DATA) public data: any
+  ) { 
+    console.log(data);
+  }
 
   ngOnInit() {
-    this.fibers = [
-      {
-        id: 1,
-        name: 'Tulima core - 18',
-        cores: [
-          {
-            id: 1,
-            hexcode: "#FFFFFF",
-            color: "White"
-          },
-          {
-            id: 2,
-            hexcode: "#000000",
-            color: "Black"
-          }
-        ]
-      },
-      {
-        id: 2,
-        name: 'Tulima core - 32',
-        cores: [
-          {
-            id: 1,
-            hexcode: "#808080",
-            color: "Red"
-          },
-          {
-            id: 2,
-            hexcode: "#909090",
-            color: "Violet"
-          }
-        ]
-      }
-    ]
+    this.fibers$ = this.fibers.fetchAll();
   }
 
-  fiberSelected(data) {
-    const selectedFiberId = data;
-
-    const x = this.fibers.findIndex(fiber => fiber.id === selectedFiberId);
-    console.log(this.fibers[x]);
-    this.selectedFiberCores = this.fibers[x].cores;
+  /**
+   * Add selected fiber to new fiber array
+   * This is not saved and used to select core for making
+   * new connection
+   * 
+   */
+  fiberAdd(fiber) {
+    if (this.addCount !== 0) {
+      return;
+    }
+    this.newFiber.push(fiber);
+    this.addCount += 1;
   }
 
-  extendConn(): void {
-    this.dialogRef.close();
+  /**
+   * Set selected id for connection fiber 
+   *
+   */
+  selectedFiber(id) {
+    this.selectedId = id;
   }
 }

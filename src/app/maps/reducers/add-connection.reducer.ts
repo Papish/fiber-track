@@ -1,19 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Plot } from '../models/new-connection.model';
 import * as fromConnection from '../actions/new-connection.action';
-import { Connection } from '../models/new-connection.model';
 
 export interface AppState {
-  plot: Connection[];    
+  plot: Plot[];
   drawing: boolean;
-  deviceOneId: number;
-  deviceTwoId: number;
+  connection: boolean;
 }
 
 const initialState: AppState = {
   plot: [],
   drawing: false,
-  deviceOneId: null,
-  deviceTwoId: null  
+  connection: false
 }
 
 export function reducer(
@@ -24,28 +22,26 @@ export function reducer(
     case fromConnection.NEW_DEVICE_CONNECTION:
       return {
         ...state,
-        plot: state.plot.concat(action.payload),
+        plot: [].concat(action.payload),
         drawing: true
-      }
+      };
+
     case fromConnection.ADD_PLOT_TO_CONNECTION:
       return {
         ...state,
-        plot: state.plot.concat(action.payload)
-      }
-    case fromConnection.END_DEVICE_CONNECTION: 
+        plot: [].concat(state.plot, action.payload)
+      };
+
+    case fromConnection.END_DEVICE_CONNECTION:
       return {
         ...state,
-        plot: state.plot.concat(action.payload),
-        drawing: false
-      }
+        plot: [].concat(state.plot, action.payload),
+        connection: true
+      };
+
     case fromConnection.NEW_DEVICE_CONNECTION_COMPLETE: 
-      return {
-        ...state,
-        plot: [],
-        drawing: false,
-        deviceOneId: null,
-        deviceTwoId: null
-      }
+      return state;
+      
     default: 
       return state;
   }

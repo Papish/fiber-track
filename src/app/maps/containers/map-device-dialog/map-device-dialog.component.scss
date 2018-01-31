@@ -3,19 +3,12 @@
 }
 
 .step-cont {
-    padding-top: 30px;
+    padding-top: 10px;
+    padding-bottom: 20px;
 }
 
 .step-body {
-    height: 280px;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.port-label {
-    display: inline-block;
-    width: 60px;
-    text-align: left !important;
+    height: 400px;
 }
 
 .footer-control {
@@ -25,6 +18,44 @@
     bottom: 0;
 }
 
-.port-list {
-    margin: 15px 0px;
+.fiber-point {
+    background-color: rgb(240, 230, 230);
+    margin-bottom: 10px;
+    padding: 3px 5px;
+    cursor: pointer;
+}
+
+.left-cont {
+    float: left;
+    width: 49%;
+    padding: 5px 0px;
+}
+
+.left-cont h4 {
+    text-align: center;
+}
+
+.right-cont h4 {
+    text-align: center;
+}
+
+.right-cont {
+    float: right;
+    width: 49%;
+    padding: 5px 0px;
+}
+
+.selected-one {
+    background-color: red;
+    color: #FFFFFF;
+}
+
+// Step two
+.port-core {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.port-core select {
+    float: right;
 }

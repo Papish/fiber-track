@@ -15,9 +15,9 @@ import * as fromConnection from '../../actions/new-connection.action';
 })
 export class GoogleMapComponent implements OnInit {
   connections$: Observable<any>;
-  connectionStatus: any;
 
   newDevice = [];
+
   deviceNew = {
     name: '',
     description: ''
@@ -27,7 +27,6 @@ export class GoogleMapComponent implements OnInit {
     private store: Store<fromMap.AppState>
   ) {
     this.connections$ = this.store.select(fromMap.getConnection);
-    this.store.select(fromMap.getConnectionStatus).subscribe(data => this.connectionStatus = data);
   }
 
   ngOnInit() {
@@ -73,12 +72,10 @@ export class GoogleMapComponent implements OnInit {
   }
 
   onMapClick($event) {
-    if (this.connectionStatus === true) {
-      const plot = {
-        latitude: $event.coords.lat,
-        longitude: $event.coords.lng
-      };
-      this.store.dispatch(new fromConnection.AddPlotToConnection(plot));
-    }
+    const plot = {
+      latitude: $event.coords.lat,
+      longitude: $event.coords.lng
+    };
+    this.store.dispatch(new fromConnection.AddPlotToConnection(plot));
   }
 }
