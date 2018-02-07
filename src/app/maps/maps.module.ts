@@ -18,17 +18,17 @@ import {
   MatSnackBarModule
 } from '@angular/material';
 
-import { MAP_API_KEY } from '../shared/map';
+import { MAP_API_KEY } from '../shared/constants/map';
 import { reducers } from './reducers';
-import { effects } from './effects';
+import { effects } from './reducers/effect';
 import { ToDecimalPipe } from '../shared/pipes/to-decimal';
 
 import { GoogleMapComponent } from './containers/google-map/google-map.component';
-import { MapDevicesComponent } from './containers/map-devices/map-devices.component';
 import { MapDeviceDialogComponent } from './containers/map-device-dialog/map-device-dialog.component';
-import { ConnectionProccedSnackComponent } from './components/connection-procced-snack/connection-procced-snack.component';
 
-import { FibersService } from './services/fibers.service';
+import { DevicesService } from '../shared/services/map-devices.service';
+import { MapDeviceNewComponent } from './components/map-device-new/map-device-new.component';
+import { MapDeviceMarkerComponent } from './components/map-device-marker/map-device-marker.component';
 
 @NgModule({
   imports: [
@@ -52,18 +52,17 @@ import { FibersService } from './services/fibers.service';
   ],
   declarations: [
     GoogleMapComponent,
-    MapDevicesComponent,
     MapDeviceDialogComponent,
     ToDecimalPipe,
-    ConnectionProccedSnackComponent
+    MapDeviceNewComponent,
+    MapDeviceMarkerComponent
   ],
   entryComponents: [
-    MapDeviceDialogComponent,
-    ConnectionProccedSnackComponent
+    MapDeviceDialogComponent
   ],
   providers: [
     GoogleMapsAPIWrapper,
-    FibersService
+    DevicesService
   ]
 })
 export class MapsModule { }

@@ -1,0 +1,6 @@
+<agm-marker
+	*ngFor="let device of devices"
+	[latitude]="device.latitude | convertToDecimal"
+	[longitude]="device.longitude | convertToDecimal"
+>
+</agm-marker>

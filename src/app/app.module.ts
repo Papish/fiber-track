@@ -8,7 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MapsModule } from './maps/maps.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 
-import { reducers, metaReducers } from './reducers';
+import { reducers, metaReducers } from './shared/store/reducers';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

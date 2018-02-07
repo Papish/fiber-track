@@ -15,7 +15,7 @@
                     </div>
                     <div class="right-cont">
                         <h4>Available Fiber - select one</h4>
-                        <div class="fiber-point" *ngFor="let fiber of newFiber" [ngClass]="{'selected-one': selectedId == fiber.id}">
+                        <div class="fiber-point" *ngFor="let fiber of newFiber" [ngClass]="{'selected-one': selectedFiberId == fiber.id}">
                             {{ fiber.name }}
                             <label style="float: right">
                                 <a href="javascript:void(0);" (click)="selectedFiber(fiber.id)">Select</a>
@@ -29,7 +29,7 @@
                         <!-- <button mat-raised-button disabled>Previous</button> -->
                     </div>
                     <div style="float: right; width: 50%; text-align: right;">
-                        <button mat-raised-button matStepperNext color="primary" [disabled]="selectedId === null">Next</button>
+                        <button mat-raised-button matStepperNext color="primary" [disabled]="selectedFiberId === null">Next</button>
                     </div>
                 </mat-dialog-actions>
                 <br />
@@ -37,46 +37,31 @@
         </mat-step>
 
         <mat-step>
-            <ng-template matStepLabel>Port/Core Assign</ng-template>
+            <ng-template matStepLabel>Select Core</ng-template>
             <div class="step-cont">
                 <div class="step-body">
-                    <div class="left-cont">
-                        <h4>Device one</h4>
-                        <div class="port-core">
-                            <label>Port 1</label>
-                            <select>
-                                <option>Core 1: White</option>
-                            </select>
-                        </div>
-                        <div class="port-core">
-                            <label>Port 2</label>
-                            <select>
-                                <option>Core 1: White</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="right-cont">
-                        <h4>Device two</h4>
+                    <div class="" style="text-align: center">
+                        <h4>Please select a core</h4>
+                        <br />
+                        <mat-form-field style="margin-left: 1px">
+                            <mat-select placeholder="" [(ngModel)]="selectedCoreId">
+                                <mat-option *ngFor="let core of (selectedFiberCores$ | async)" [value]="core.core_id">
+                                    {{ core.color }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
-            </div>
-        </mat-step>
 
-        <mat-step>
-            <ng-template matStepLabel>
-                <label>Complete</label>
-            </ng-template>
-            <div class="step-cont">
-                <div class="step-body">
-                    <div class="left-cont">
-                        <h4>Device one</h4>
+                <mat-dialog-actions class="footer-control">
+                    <div style="float: left; width: 50%; text-align: left;">
+                        <button mat-raised-button matStepperPrevious>Previous</button>
                     </div>
-
-                    <div class="right-cont">
-                        <h4>Device two</h4>
+                    <div style="float: right; width: 50%; text-align: right;">
+                        <button mat-raised-button matStepperNext color="primary" (click)="saveConn()">Save</button>
                     </div>
-                </div>
+                </mat-dialog-actions>
+                <br />
             </div>
         </mat-step>
     </mat-horizontal-stepper>

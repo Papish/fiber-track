@@ -1,25 +1,19 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromMapDevices  from './map-devices';
-import * as fromConnection from './add-connection.reducer';
+import * as fromMapDevice from './map-device';
 
 export interface AppState {
-  mapDevice: fromMapDevices.AppState,
-  newConnection: fromConnection.AppState
+	mapDevice: fromMapDevice.AppState
 }
 
 export const reducers = {
-  mapDevice: fromMapDevices.reducer,
-  newConnection: fromConnection.reducer
+	mapDevice: fromMapDevice.reducer
 };
 
+// Selecting feature of store
 export const getMapState = createFeatureSelector<AppState>('maps');
 
-// Map Devices
-export const getMapDevices = createSelector(getMapState, (state) => state.mapDevice.devices);
+// Select new map devices element
+export const getNewDrawnDevices = createSelector(getMapState, (state) => state.mapDevice.newDevice);
 
-// New Map Connections
-export const getConnection = createSelector(getMapState, (state) => state.newConnection.plot);
-
-export const getAddConnectionDrawingStatus = createSelector(getMapState, (state) => state.newConnection.drawing);
-
-export const getAddConnectionCoreSelectionStatus = createSelector(getMapState, (state) => state.newConnection.connection);
+// Select all map device list element
+export const getAllMapDevices = createSelector(getMapState, (state) => state.mapDevice.devices);

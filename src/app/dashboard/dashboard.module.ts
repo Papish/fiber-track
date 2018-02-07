@@ -6,8 +6,6 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 import { AppRoutingModule } from '../app-routing.module';
 
-import { FibersService } from './services/fibers.service';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -19,7 +17,6 @@ import { FibersService } from './services/fibers.service';
     NavBarComponent
   ],
   providers: [
-    FibersService
   ],
   entryComponents: [
   ]

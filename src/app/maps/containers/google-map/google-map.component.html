@@ -4,41 +4,20 @@
 		[longitude]="85.34598" 
 		[zoom]="18"
 		[disableDoubleClickZoom]="true"
-		(mapRightClick)="createMarker($event)"
+		(mapRightClick)="onMapRightClick($event)"
 		(mapClick)="onMapClick($event)"
 	>
-		<ft-map-devices></ft-map-devices>
 
-		<!-- New marker -->
-		<agm-marker
-			*ngFor="let device of newDevice"
-			[latitude]="device.lat"
-			[longitude]="device.lng"
-		>
-			<agm-snazzy-info-window [maxWidth]="350" [maxHeight]="500" [isOpen]="true" [closeWhenOthersOpen]="true">
-				<ng-template>
-					<div class="info-form">
-						<form (ngSubmit)="saveMarker(device.lat, device.lng)">
-							<input type="text" placeholder="Name" name="name" autocomplete="off" [(ngModel)]="deviceNew.name" />
-							<br /><br />
-							<textarea rows="5" name="description" autocomplete="off" [(ngModel)]="deviceNew.description"></textarea>
-							<br /><br />
-							<button type="submit">Save</button>
-						</form>
-					</div>
-				</ng-template>
-			</agm-snazzy-info-window>
-		</agm-marker>
+		<ft-map-device-marker
+			[devices]="devices$ | async"
+			>
+		</ft-map-device-marker>
 
-		<!-- New Connection -->
-		<agm-polyline
-			[editable]="true"
-		>
-			<agm-polyline-point
-				*ngFor="let connection of (connections$ | async)"
-				[latitude]="connection.latitude | convertToDecimal"
-				[longitude]="connection.longitude | convertToDecimal"
-			></agm-polyline-point>
-		</agm-polyline>
+		<ft-map-device-new 
+			[devices]="newDevice$ | async"
+			(save)="saveDrawnDevice($event)"
+			(clear)="clearDrawnDevice()"
+			>
+		</ft-map-device-new>
 	</agm-map>
 </div>
